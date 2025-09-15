@@ -31,6 +31,7 @@ import {
   LightBulbIcon,
   PlusIcon,
   ShieldCheckIcon,
+  TableCellsIcon,
   UserCircleIcon,
 } from '@heroicons/react/16/solid'
 import {
@@ -129,6 +130,10 @@ export function ApplicationLayout({
               <SidebarItem href="/" current={pathname === '/'}>
                 <HomeIcon />
                 <SidebarLabel>Home</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem href="/datatables" current={pathname === '/datatables'}>
+                <TableCellsIcon />
+                <SidebarLabel>Datatables</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/events" current={pathname.startsWith('/events')}>
                 <Square2StackIcon />
