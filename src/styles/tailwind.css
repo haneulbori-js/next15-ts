@@ -1,0 +1,321 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: Inter, sans-serif;
+  --font-sans--font-feature-settings: 'cv11';
+}
+
+@import 'datatables.net-dt/css/dataTables.dataTables.css';
+/* 옵션: responsive를 설치했다면 아래도 */
+@import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
+
+:root {
+  --dt-bg: #ffffff;
+  --dt-surface: #ffffff;
+  --dt-text: #0f172a; /* slate-900 */
+  --dt-subtle: #64748b; /* slate-500 */
+  --dt-line: #e5e7eb; /* gray-200 */
+  --dt-hover: #f8fafc; /* slate-50 */
+  --dt-zebra: #fafafa; /* neutral-50 */
+  --dt-accent: #4f46e5; /* indigo-600 */
+  --dt-accent-strong: #4338ca; /* indigo-700 */
+  --dt-ring: 36 100% 50%; /* hsl for focus ring (indigo-ish) */
+  --dt-radius: 16px;
+  --dt-radius-sm: 10px;
+  --dt-shadow: 0 10px 30px rgba(2, 6, 23, 0.08); /* slate-950/8% */
+  --dt-shadow-soft: 0 6px 20px rgba(2, 6, 23, 0.06);
+}
+
+/* 다크 모드(시스템) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dt-bg: #0b1220; /* slate-950ish */
+    --dt-surface: #0f172a; /* slate-900 */
+    --dt-text: #e5e7eb; /* gray-200 */
+    --dt-subtle: #94a3b8; /* slate-400 */
+    --dt-line: #1f2937; /* gray-800 */
+    --dt-hover: #0b1220; /* surface tint */
+    --dt-zebra: #0c1424;
+    --dt-accent: #818cf8; /* indigo-400 */
+    --dt-accent-strong: #6366f1; /* indigo-500 */
+    --dt-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    --dt-shadow-soft: 0 8px 26px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* 컨테이너 카드 느낌 */
+.dt-container {
+  color: var(--dt-text);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--dt-surface) 92%, transparent), var(--dt-surface));
+  border: 1px solid var(--dt-line);
+  border-radius: var(--dt-radius);
+  box-shadow: var(--dt-shadow);
+  padding: 16px;
+}
+
+/* 헤더 바(상단 컨트롤 영역) */
+.dt-container .dt-layout-row:first-child {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.dt-container .dt-layout-row:last-child {
+  margin-top: 10px;
+}
+
+/* Length(표시 개수) 셀렉트 + Search 인풋 스타일 */
+.dt-container select.dt-input,
+.dt-container input.dt-input {
+  background: var(--dt-bg);
+  color: var(--dt-text);
+  border: 1px solid var(--dt-line);
+  border-radius: 10px;
+  padding: 8px 12px;
+  height: 38px;
+  line-height: 22px;
+  box-shadow: var(--dt-shadow-soft);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.06s ease;
+}
+.dt-container input.dt-input::placeholder {
+  color: var(--dt-subtle);
+}
+.dt-container select.dt-input:focus,
+.dt-container input.dt-input:focus {
+  outline: none;
+  border-color: var(--dt-accent);
+  box-shadow: 0 0 0 4px color-mix(in oklab, hsl(var(--dt-ring)) 20%, transparent);
+}
+.dt-container input.dt-input:hover,
+.dt-container select.dt-input:hover {
+  transform: translateY(-1px);
+}
+
+/* 라벨 색상 */
+.dt-container .dt-length label,
+.dt-container .dt-search label {
+  color: var(--dt-subtle);
+  font-size: 0.875rem;
+}
+
+/* 테이블 베이스 */
+table.dataTable {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0;
+  background: var(--dt-bg);
+  border: 1px solid var(--dt-line);
+  border-radius: var(--dt-radius-sm);
+  overflow: hidden;
+}
+
+/* 헤더 */
+table.dataTable thead th {
+  background: color-mix(in oklab, var(--dt-surface) 96%, transparent);
+  color: var(--dt-text);
+  font-weight: 700;
+  border-bottom: 1px solid var(--dt-line) !important;
+  padding: 12px 14px !important;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* 정렬 아이콘(asc/desc) 재디자인: 마스크 SVG 사용 */
+table.dataTable thead th.sorting,
+table.dataTable thead th.sorting_asc,
+table.dataTable thead th.sorting_desc {
+  position: relative;
+  padding-right: 28px !important;
+}
+table.dataTable thead th.sorting::after,
+table.dataTable thead th.sorting_asc::after,
+table.dataTable thead th.sorting_desc::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%) rotate(0deg);
+  background: currentColor;
+  opacity: 0.35;
+  -webkit-mask: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+    <path d='M12 7l5 5H7z'/>\
+  </svg>")
+    no-repeat center/contain;
+  mask: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+    <path d='M12 7l5 5H7z'/>\
+  </svg>")
+    no-repeat center/contain;
+}
+table.dataTable thead th.sorting_asc::after {
+  transform: translateY(-50%) rotate(180deg);
+  color: var(--dt-accent-strong);
+  opacity: 0.9;
+}
+table.dataTable thead th.sorting_desc::after {
+  transform: translateY(-50%) rotate(0deg);
+  color: var(--dt-accent-strong);
+  opacity: 0.9;
+}
+
+/* 바디 */
+table.dataTable tbody td {
+  padding: 12px 14px !important;
+  border-bottom: 1px solid var(--dt-line);
+  vertical-align: middle;
+}
+table.dataTable tbody tr:nth-child(even) {
+  background: var(--dt-zebra);
+}
+table.dataTable tbody tr:hover {
+  background: var(--dt-hover);
+}
+table.dataTable tbody tr.selected > * {
+  background: color-mix(in oklab, var(--dt-accent) 10%, transparent) !important;
+}
+
+/* 푸터(있을 경우) */
+table.dataTable tfoot th,
+table.dataTable tfoot td {
+  border-top: 1px solid var(--dt-line) !important;
+  background: color-mix(in oklab, var(--dt-surface) 96%, transparent);
+  font-weight: 600;
+}
+
+/* 정보 텍스트 */
+.dt-container .dt-info {
+  color: var(--dt-subtle);
+  font-size: 0.875rem;
+}
+
+/* 페이지네이션 */
+.dt-container .dt-paging {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.dt-container .dt-paging .dt-paging-button {
+  background: var(--dt-bg);
+  border: 1px solid var(--dt-line);
+  border-radius: 10px;
+  padding: 6px 10px;
+  min-width: 36px;
+  text-align: center;
+  color: var(--dt-text);
+  box-shadow: var(--dt-shadow-soft);
+  transition:
+    transform 0.06s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+.dt-container .dt-paging .dt-paging-button:hover {
+  transform: translateY(-1px);
+  border-color: var(--dt-accent);
+}
+.dt-container .dt-paging .dt-paging-button.current,
+.dt-container .dt-paging .dt-paging-button:active {
+  background: color-mix(in oklab, var(--dt-accent) 12%, var(--dt-bg));
+  border-color: var(--dt-accent);
+  color: var(--dt-text);
+}
+.dt-container .dt-paging .dt-paging-button.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Responsive(행 펼침) 셀 */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control::before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control::before {
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--dt-accent);
+  box-shadow: var(--dt-shadow-soft);
+  -webkit-mask: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+    <path fill='black' d='M12 8v8m-4-4h8'/>\
+  </svg>")
+    no-repeat center/55% 55%;
+  mask: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+    <path fill='black' d='M12 8v8m-4-4h8'/>\
+  </svg>")
+    no-repeat center/55% 55%;
+  color: transparent; /* 원래 플러스/마이너스 텍스트 숨김 */
+}
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control::before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control::before {
+  background: var(--dt-accent-strong);
+  -webkit-mask: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+    <path fill='black' d='M7 12h10'/>\
+  </svg>")
+    no-repeat center/55% 55%;
+  mask: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+    <path fill='black' d='M7 12h10'/>\
+  </svg>")
+    no-repeat center/55% 55%;
+}
+
+/* Child-row 카드화 */
+table.dataTable > tbody > tr.child {
+  background: color-mix(in oklab, var(--dt-accent) 5%, transparent);
+}
+table.dataTable > tbody > tr.child ul.dtr-details {
+  display: grid;
+  gap: 8px;
+  padding: 12px 10px;
+}
+table.dataTable > tbody > tr.child ul.dtr-details > li {
+  background: var(--dt-bg);
+  border: 1px solid var(--dt-line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  box-shadow: var(--dt-shadow-soft);
+}
+table.dataTable > tbody > tr.child ul.dtr-details > li .dtr-title {
+  color: var(--dt-subtle);
+  font-size: 0.8rem;
+  margin-right: 6px;
+}
+table.dataTable > tbody > tr.child ul.dtr-details > li .dtr-data {
+  color: var(--dt-text);
+  font-weight: 600;
+}
+
+/* 툴팁/포커스 가능 요소의 포커스 링 접근성 */
+.dt-container a:focus,
+.dt-container button:focus,
+.dt-container .dt-paging .dt-paging-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in oklab, hsl(var(--dt-ring)) 20%, transparent);
+  border-color: var(--dt-accent);
+}
+
+/* 스크롤 가로 오버플로우 테이블용(긴 내용) */
+.dt-container .dataTables_scroll {
+  border: 1px solid var(--dt-line);
+  border-radius: var(--dt-radius-sm);
+  overflow: hidden;
+}
+.dt-container .dataTables_scrollBody {
+  scrollbar-width: thin;
+}
+.dt-container .dataTables_scrollBody::-webkit-scrollbar {
+  height: 10px;
+}
+.dt-container .dataTables_scrollBody::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--dt-subtle) 30%, transparent);
+  border-radius: 999px;
+}
