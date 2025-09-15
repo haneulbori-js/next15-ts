@@ -33,6 +33,7 @@ import {
   ShieldCheckIcon,
   TableCellsIcon,
   UserCircleIcon,
+  UsersIcon,
 } from '@heroicons/react/16/solid'
 import {
   Cog6ToothIcon,
@@ -130,6 +131,10 @@ export function ApplicationLayout({
               <SidebarItem href="/" current={pathname === '/'}>
                 <HomeIcon />
                 <SidebarLabel>Home</SidebarLabel>
+              </SidebarItem>
+              <SidebarItem href="/users" current={pathname === '/users'}>
+                <UsersIcon />
+                <SidebarLabel>Users</SidebarLabel>
               </SidebarItem>
               <SidebarItem href="/datatables" current={pathname === '/datatables'}>
                 <TableCellsIcon />

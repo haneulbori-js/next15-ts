@@ -8,6 +8,7 @@
 @import 'datatables.net-dt/css/dataTables.dataTables.css';
 /* 옵션: responsive를 설치했다면 아래도 */
 @import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
+@import 'datatables.net-buttons-dt/css/buttons.dataTables.css';
 
 :root {
   --dt-bg: #ffffff;
